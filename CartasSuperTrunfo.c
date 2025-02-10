@@ -1,12 +1,14 @@
 #include <stdio.h>
 
-// Nivel Iniciante
+// Nivel Aventureiro
 
 int main(){
 
     //Declaração das variaveis
-    char Estado[3], CodigoDaCarta[4], NomeDaCidade[50];
-    int PontosTuristicos, PIB, Populacao, area;
+    char Estado[2], CodigoDaCarta[4], NomeDaCidade[50];
+    int PontosTuristicos, Populacao, area;
+    long long int PIB;
+    float DensidadePopulacional, PIBperCapita;
 
     //Entrada de dados
     printf("Insira os dados da carta\n");
@@ -21,23 +23,28 @@ int main(){
     printf("Nome da cidade (Exemplo: Sao Paulo): ");
     scanf(" %[^\n]", &NomeDaCidade); //  '%[^\n]' lê espaços
 
-    printf("População (em milhões, exemplo: 11451999 milhões): ");
+    printf("População (em milhões, exemplo: 11451999): ");
     scanf(" %d", &Populacao);
    
     while (getchar() != '\n');
 
-    printf("Área (em km², exemplo: 1521202 milhões): ");
+    printf("Área (em km², exemplo: 1521202): ");
     scanf(" %d", &area);
 
      while (getchar() != '\n');
 
-    printf("PIB (em bilhões, exemplo: 828 bilhões): ");
-    scanf("%d", &PIB);
+    printf("PIB (em bilhões, exemplo: 828980607731): ");
+    scanf("%lld", &PIB);
 
     while (getchar() != '\n'); 
 
     printf("Número de pontos turisticos: ");
     scanf("%d", &PontosTuristicos);
+
+
+    // Calculos 
+    DensidadePopulacional = (float)Populacao / area;
+    PIBperCapita = (double) PIB / Populacao;
 
     //Saida de dados
     printf("\n");
@@ -49,6 +56,7 @@ int main(){
     printf("Área: %d km² \n", area);
     printf("PIB: %d bilhões \n", PIB);
     printf("Numero de pontos turisticos: %d \n", PontosTuristicos);
-
+    printf("Pib Per Capita: %.2f \n", PIBperCapita);
+    printf("Densidade Populacional: %.2f hab/km² \n", DensidadePopulacional);
     return 0;
 }
