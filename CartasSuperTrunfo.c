@@ -1,62 +1,73 @@
 #include <stdio.h>
 
-// Nivel Aventureiro
+// Nivel Mestre
 
-int main(){
-
-    //Declaração das variaveis
-    char Estado[2], CodigoDaCarta[4], NomeDaCidade[50];
-    int PontosTuristicos, Populacao, area;
-    long long int PIB;
+//Estrutura para armazenar os dados da carta
+struct CartasSuperTrunfo
+{
+    char Estado[3];
+    char CodigoDaCarta[5];
+    char NomeDaCidade[60];
+    long long int PIB, Populacao, area;
     float DensidadePopulacional, PIBperCapita;
+    int PontosTuristicos;
+};
 
-    //Entrada de dados
-    printf("Insira os dados da carta\n");
+    //Criando função para evitar repitação de codigo
+    void CadastrarCarta(struct CartasSuperTrunfo*Carta, int NumeroDaCarta){
+
+    printf("Insira os dados da carta %d \n", NumeroDaCarta);
+
     printf("Estado (ex: SP): ");
-    scanf("%s", &Estado);
+    scanf("%s", Carta->Estado);
 
     printf("Codigo da carta (ex: A01): ");
-    scanf("%3s", &CodigoDaCarta);
+    scanf("%3s", &Carta->CodigoDaCarta);
 
     while (getchar() != '\n'); // limpa o buffer antes do nome da cidade
 
     printf("Nome da cidade (Exemplo: Sao Paulo): ");
-    scanf(" %[^\n]", &NomeDaCidade); //  '%[^\n]' lê espaços
+    scanf(" %[^\n]", Carta->NomeDaCidade); //  '%[^\n]' lê espaços
 
     printf("População (em milhões, exemplo: 11451999): ");
-    scanf(" %d", &Populacao);
+    scanf(" %d", &Carta->Populacao);
    
     while (getchar() != '\n');
 
     printf("Área (em km², exemplo: 1521202): ");
-    scanf(" %d", &area);
+    scanf(" %d", &Carta->area);
 
      while (getchar() != '\n');
 
     printf("PIB (em bilhões, exemplo: 828980607731): ");
-    scanf("%lld", &PIB);
+    scanf("%lld", &Carta->PIB);
 
     while (getchar() != '\n'); 
 
     printf("Número de pontos turisticos: ");
-    scanf("%d", &PontosTuristicos);
-
+    scanf("%d", &Carta->PontosTuristicos);
 
     // Calculos 
-    DensidadePopulacional = (float)Populacao / area;
-    PIBperCapita = (double) PIB / Populacao;
+    Carta->DensidadePopulacional = (float) Carta->Populacao / Carta->area;
+    Carta->PIBperCapita = (double) Carta->PIB / Carta->Populacao;
 
+    }
+
+
+int main(){
+
+    struct CartasSuperTrunfo carta1, carta2; // Cria duas variaveis do tipo struct Carta
+
+    //Chamando a função para cadastrar as duas cartas
+    CadastrarCarta(&carta1, 1);
+    CadastrarCarta(&carta2, 2);
+    
     //Saida de dados
-    printf("\n");
-    printf("Resultados: \n");
-    printf("Estado: %s \n", Estado);
-    printf("Codigo da carta: %s \n", CodigoDaCarta);
-    printf("Nome da Cidade: %s \n", NomeDaCidade);
-    printf("População: %d milhões \n", Populacao);
-    printf("Área: %d km² \n", area);
-    printf("PIB: %d bilhões \n", PIB);
-    printf("Numero de pontos turisticos: %d \n", PontosTuristicos);
-    printf("Pib Per Capita: %.2f \n", PIBperCapita);
-    printf("Densidade Populacional: %.2f hab/km² \n", DensidadePopulacional);
+    printf("Carta 1 - Estado: %s | Cidade: %s | PIB: %lld | População: %lld | Área: %lld | Densidade: %.2f | PIB per Capita: %.2f\n",
+           carta1.Estado, carta1.NomeDaCidade, carta1.PIB, carta1.Populacao, carta1.area, carta1.DensidadePopulacional, carta1.PIBperCapita);
+
+    printf("Carta 2 - Estado: %s | Cidade: %s | PIB: %lld | População: %lld | Área: %lld | Densidade: %.2f | PIB per Capita: %.2f\n",
+           carta2.Estado, carta2.NomeDaCidade, carta2.PIB, carta2.Populacao, carta2.area, carta2.DensidadePopulacional, carta2.PIBperCapita);
+
     return 0;
 }
